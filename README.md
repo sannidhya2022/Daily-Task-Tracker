@@ -34,7 +34,7 @@ The Daily Task Tracker's flexibility makes it suitable for various scenarios:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/daily-task-tracker.git
+   git clone https://github.com/sannidhya2022/Daily-Task-Tracker.git
    ```
 
 2. Navigate to the project directory:
