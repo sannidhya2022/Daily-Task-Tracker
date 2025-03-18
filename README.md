@@ -44,7 +44,7 @@ The Daily Task Tracker's flexibility makes it suitable for various scenarios:
 
 3. Run the application by double-clicking the BAT file or executing it from the command line:
    ```
-   start.bat
+   run_app.bat
    ```
 
 4. Open your web browser and navigate to:
