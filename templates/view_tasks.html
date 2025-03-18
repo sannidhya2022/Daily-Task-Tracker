@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Tasks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #007bff, #6dd5ed);
+            min-height: 100vh;
+            color: rgb(14, 14, 14);
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .table-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .table {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table th {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+        }
+        .table td {
+            padding: 12px;
+            vertical-align: middle;
+        }
+        .table tr:hover {
+            background: rgba(0, 123, 255, 0.05);
+        }
+        .urgency-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .urgency-low { background: #d4edda; color: #155724; }
+        .urgency-mid { background: #fff3cd; color: #856404; }
+        .urgency-high { background: #f8d7da; color: #721c24; }
+        h1 {
+            color: #007bff;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="table-container">
+            <h1 class="text-center mb-4">Tasks Month-wise</h1>
+            {% set months_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] %}
+            {% set sorted_months = grouped_tasks|dictsort(by='key') %}
+            {% for month, tasks in sorted_months %}
+                {% set month_name = month.split(' ')[0] %}
+                {% set month_index = months_order.index(month_name) %}
+                {% set sorted_tasks = tasks|sort(attribute='date') %}
+                <h2 class="mb-3">{{ month }}</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Task</th>
+                            <th>Solution</th>
+                            <th>Urgency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in sorted_tasks %}
+                            <tr>
+                                <td>{{ task.date }}</td>
+                                <td>{{ task.task }}</td>
+                                <td>{{ task.solution }}</td>
+                                <td>
+                                    <span class="urgency-badge urgency-{{ task.urgency }}">
+                                        {{ task.urgency }}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+            <div class="mt-4">
+                <a href="/" class="btn btn-primary w-100 mb-2">Add New Task</a>
+                <a href="/export" class="btn btn-success w-100">Download CSV</a>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center mt-4">
+        Made with ❤️ by <a href="https://github.com/sannidhya-srivastava" target="_blank">Sannidhya Srivastava</a>
+    </footer>
+</body>
+</html>
